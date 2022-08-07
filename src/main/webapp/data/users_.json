@@ -1,0 +1,10 @@
+{
+    "success": "true",
+    "users": [
+        {
+            "id": "dgkim",
+            "name": "김덕곤",
+            "ou": "T사업2팀"
+        }
+    ]
+}

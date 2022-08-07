@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="TransactionNamespace">
+    <typeAlias alias="Transaction" type="net.dgkim.mis.model.Transaction" />
+
+    <select id="getTransactionList" resultClass="Transaction">
+        SELECT "TRANSACTION_ID" AS ID,
+               "TRANSACTION_ID",
+               "TRANSACTION_GROUP_ID",
+               "OWNER",
+               "TRANSACTION_DATETIME",
+               "TRANSACTION_DAILY_NO",
+               "TRANSACTION_REFERENCE_NO",
+               "AFFECTING_ACCOUNT_ID",
+               "AMOUNT",
+               "RELATED_BUSINESS_ID",
+               "COMMENT"
+          FROM public."TRANSACTIONS"
+         ORDER BY "TRANSACTION_ID"
+    </select>
+    
+    <insert id="createTransaction" parameterClass="Transaction" >
+        INSERT INTO public."TRANSACTIONS"
+               (
+                   "TRANSACTION_ID",
+                   "TRANSACTION_GROUP_ID",
+                   "OWNER",
+                   "TRANSACTION_DATETIME",
+                   "TRANSACTION_DAILY_NO",
+                   "TRANSACTION_REFERENCE_NO",
+                   "AFFECTING_ACCOUNT_ID",
+                   "AMOUNT",
+                   "RELATED_BUSINESS_ID",
+                   "COMMENT"
+               )
+         VALUES(
+                   (#transaction_id#),
+                   (#transaction_group_id#),
+                   (#owner#),
+                   (#transaction_datetime#),
+                   (#transaction_daily_no#),
+                   (#transaction_reference_no#),
+                   (#affecting_account_id#),
+                   (#amount#),
+                   (#related_business_id#),
+                   (#comment#)
+               )
+                   
+    </insert>
+    
+    <update id="saveTransaction" parameterClass="Transaction" >
+        UPDATE public."TRANSACTIONS"
+           SET "TRANSACTION_ID" = (#transaction_id#),
+               "TRANSACTION_GROUP_ID" = (#transaction_group_id#),
+               "OWNER" = (#owner#),
+               "TRANSACTION_DATETIME" = (#transaction_datetime#),
+               "TRANSACTION_DAILY_NO" = (#transaction_daily_no#),
+               "TRANSACTION_REFERENCE_NO" = (#transaction_reference_no#),
+               "AFFECTING_ACCOUNT_ID" = (#affecting_account_id#),
+               "AMOUNT" = (#amount#),
+               "RELATED_BUSINESS_ID" = (#related_business_id#),
+               "COMMENT" = (#comment#)
+         WHERE "TRANSACTION_ID" = (#transaction_id#)
+    </update>
+    
+    <delete id="deleteTransaction" parameterClass="Transaction" >
+        DELETE FROM public."TRANSACTIONS"
+              WHERE "TRANSACTION_ID" = (#transaction_id#)
+    </delete>
+    
+    <select id="latestTransaction" parameterClass="String" resultClass="String">
+        SELECT MAX("TRANSACTION_ID") FROM public."TRANSACTIONS" WHERE "TRANSACTION_ID" LIKE #transaction_id#||'%'
+    </select>
+    
+</sqlMap>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="UserNamespace">
+    <typeAlias alias="User" type="net.dgkim.mis.model.User" />
+
+    <select id="getUserList" resultClass="User">
+        SELECT "MEMBER_ID" AS ID, "MEMBER_ID", "EMP_NO", "MEMBER_NAME", "MEMBER_OU" FROM public."MEMBERS" ORDER BY "EMP_NO"
+    </select>
+    
+    <insert id="createUser" parameterClass="User" >
+        INSERT INTO public."MEMBERS" ("MEMBER_ID", "EMP_NO", "MEMBER_NAME", "MEMBER_OU") VALUES( (#member_id#), (#emp_no#), (#member_name#), (#member_ou#) )
+    </insert>
+    
+    <update id="saveUser" parameterClass="User" >
+        UPDATE public."MEMBERS" SET "MEMBER_ID" = (#member_id#), "EMP_NO" = (#emp_no#), "MEMBER_NAME" = (#member_name#), "MEMBER_OU" = (#member_ou#) WHERE "MEMBER_ID" = (#member_id#)
+    </update>
+    
+    <delete id="deleteUser" parameterClass="User" >
+        DELETE FROM public."MEMBERS" WHERE "MEMBER_ID" = (#member_id#)
+    </delete>
+    
+</sqlMap>

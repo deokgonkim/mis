@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="AccountNamespace">
+    <typeAlias alias="Account" type="net.dgkim.mis.model.Account" />
+
+    <select id="getAccountList" resultClass="Account">
+        SELECT "ACCOUNT_ID" AS ID,
+               "ACCOUNT_ID",
+               "ACCOUNT_NAME",
+               "ACCOUNT_TYPE",
+               "ACCOUNT_DESCRIPTION",
+               "PARENT_ACCOUNT_ID"
+          FROM public."ACCOUNTS"
+         ORDER BY "ACCOUNT_ID"
+    </select>
+    
+    <insert id="createAccount" parameterClass="Account" >
+        INSERT INTO public."ACCOUNTS"
+               (
+                   "ACCOUNT_ID"",
+                   "ACCOUNT_NAME",
+                   "ACCOUNT_TYPE",
+                   "ACCOUNT_DESCRIPTION",
+                   "PARENT_ACCOUNT_ID"
+               )
+         VALUES(
+                   (#account_id#),
+                   (#account_name#),
+                   (#account_type#),
+                   (#account_description#),
+                   (#parent_account_id#)
+               )
+                   
+    </insert>
+    
+    <update id="saveAccount" parameterClass="Account" >
+        UPDATE public."ACCOUNTS"
+           SET "ACCOUNT_ID" = (#account_id#),
+               "ACCOUNT_NAME" = (#account_name#),
+               "ACCOUNT_TYPE" = (#account_type#),
+               "ACCOUNT_DESCRIPTION" = (#account_description#),
+               "PARENT_ACCOUNT_ID" = (#parent_account_id#)
+         WHERE "ACCOUNT_ID" = (#account_id#)
+    </update>
+    
+    <delete id="deleteAccount" parameterClass="Account" >
+        DELETE FROM public."ACCOUNTS"
+              WHERE "ACCOUNT_ID" = (#account_id#)
+    </delete>
+    
+</sqlMap>

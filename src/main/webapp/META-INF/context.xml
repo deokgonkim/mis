@@ -1,0 +1,32 @@
+<!--  
+  Context fragment for deploying MyWebApp.war  
+ -->
+<!-- context.xml can't be used to load environment variables -->
+<!-- <Context>
+    <Realm className="org.apache.catalina.realm.JNDIRealm"
+           connectionURL="${LDAP_URL}"
+           roleBase="${LDAP_GROUP_BASE}"
+           roleName="${LDAP_GROUP_NAME_ATTR}"
+           roleSearch="${LDAP_GROUP_SEARCH}"
+           userPattern="${LDAP_USER_SEARCH}"/>
+    <Resource auth="Container" 
+              driverClassName="org.postgresql.Driver"
+              maxActive="50"
+              maxIdle="30"
+              maxWait="10000"
+              name="jdbc/mis"
+              password="${POSTGRES_PASSWORD}"
+              removeAbandoned="true"
+              removeAbandonedTimeout="60"
+              type="javax.sql.DataSource" 
+              url="${POSTGRES_URL}"
+              username="${POSTGRES_USERNAME}"
+              validationQuery="SELECT ''"/>
+</Context> -->
+<Context>
+       <ResourceLink
+              name="jdbc/mis"
+              global="jdbc/mis"
+              type="javax.sql.DataSource"
+       />
+</Context>
